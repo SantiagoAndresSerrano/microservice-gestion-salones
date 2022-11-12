@@ -1,4 +1,4 @@
-package com.springboot.app.gestionsalones.services;
+package com.springboot.app.gestionsalones.servicesImpl;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.app.gestionsalones.entities.ObservacionPrestamo;
 import com.springboot.app.gestionsalones.repositories.ObservacionPrestamoRepository;
+import com.springboot.app.gestionsalones.services.ObservacionPrestamoService;
 
 @Service
 public class ObservacionPrestamoServiceImpl implements ObservacionPrestamoService

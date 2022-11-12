@@ -1,4 +1,4 @@
-package com.springboot.app.gestionsalones.services;
+package com.springboot.app.gestionsalones.servicesImpl;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.app.gestionsalones.entities.TipoInventario;
 import com.springboot.app.gestionsalones.repositories.TipoInventarioRepository;
+import com.springboot.app.gestionsalones.services.TipoInventarioService;
 
 @Service
 public class TipoInventarioServiceImpl implements TipoInventarioService
