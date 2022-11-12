@@ -10,5 +10,6 @@ public interface TipoInventarioService
 	public TipoInventario findById (Integer id);	
 	public TipoInventario save (TipoInventario nuevo);	
 	public void update (TipoInventario nuevo);	
-	public void deleteById (Integer id);	
+	public void deleteById (Integer id);
+	public void delete (TipoInventario actual);
 }

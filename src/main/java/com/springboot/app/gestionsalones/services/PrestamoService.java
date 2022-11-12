@@ -10,5 +10,6 @@ public interface PrestamoService
 	public Prestamo findById (Integer id);	
 	public Prestamo save (Prestamo nuevo);	
 	public void update (Prestamo nuevo);	
-	public void deleteById (Integer id);	
+	public void deleteById (Integer id);
+	public void delete (Prestamo actual);
 }

@@ -15,9 +15,15 @@ import lombok.Data;
 @Table(name = "tipo_inventario")
 public class TipoInventario implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_inventario;
 	private String nombre;
 	
+	public TipoInventario() {}
+	
+	public TipoInventario(String nombre) {
+		this.nombre = nombre;
+	}
+
 	private static final long serialVersionUID = 1L;
 }

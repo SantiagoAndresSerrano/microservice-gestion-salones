@@ -51,4 +51,10 @@ public class TipoActividadServiceImpl implements TipoActividadService
 	public void deleteById (Integer id) {
 		data.deleteById(id);
 	}
+
+	@Override
+	@Transactional
+	public void delete(TipoActividad actual) {
+		data.delete(actual);		
+	}
 }

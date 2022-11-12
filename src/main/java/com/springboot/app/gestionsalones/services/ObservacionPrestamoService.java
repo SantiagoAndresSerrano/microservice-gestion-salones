@@ -10,5 +10,6 @@ public interface ObservacionPrestamoService
 	public ObservacionPrestamo findById (Integer id);	
 	public ObservacionPrestamo save (ObservacionPrestamo nuevo);	
 	public void update (ObservacionPrestamo nuevo);	
-	public void deleteById (Integer id);	
+	public void deleteById (Integer id);
+	public void delete (ObservacionPrestamo actual);
 }

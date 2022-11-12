@@ -1,6 +1,7 @@
 package com.springboot.app.gestionsalones.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import lombok.Data;
 @Table(name = "detalle_prestamo")
 public class Prestamo implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_detalle;
 	private Integer id_actividad;
 	private Integer id_persona;
@@ -29,23 +30,20 @@ public class Prestamo implements Serializable{
 	private Date fecha;
 	private String observacion;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_detalle", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "prestamo", cascade = CascadeType.ALL)
 	List<ObservacionPrestamo> observaciones;
 	
-	public Prestamo() {		
-		this.estado = 1;
-		this.fecha = new Date();
-		this.observacion = "";
-	}
+	public Prestamo() {}
 	
-	public Prestamo(Integer id_actividad, Integer id_persona, Integer id_salon) {
+	public Prestamo(Integer id_actividad, Integer id_persona, Integer id_salon, String observacion) {
 		this.id_actividad = id_actividad;
 		this.id_persona = id_persona;
 		this.id_salon = id_salon;
+		this.observacion = observacion;
 		
 		this.estado = 1;
 		this.fecha = new Date();
-		this.observacion = "";
+		this.observaciones = new ArrayList<>();
 	}
 	
 	private static final long serialVersionUID = 1L;

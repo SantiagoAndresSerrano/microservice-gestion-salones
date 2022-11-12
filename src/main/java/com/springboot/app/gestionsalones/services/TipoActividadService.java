@@ -10,5 +10,6 @@ public interface TipoActividadService
 	public TipoActividad findById (Integer id);	
 	public TipoActividad save (TipoActividad nuevo);	
 	public void update (TipoActividad nuevo);	
-	public void deleteById (Integer id);	
+	public void deleteById (Integer id);
+	public void delete (TipoActividad actual);
 }

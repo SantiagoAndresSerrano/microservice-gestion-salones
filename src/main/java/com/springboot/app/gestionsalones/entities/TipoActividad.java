@@ -15,10 +15,17 @@ import lombok.Data;
 @Table(name = "tipo_actividad")
 public class TipoActividad implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_actividad;
 	private String nombre;
 	private String descripcion;
 	
+	public TipoActividad() {}
+	
+	public TipoActividad(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+
 	private static final long serialVersionUID = 1L;
 }

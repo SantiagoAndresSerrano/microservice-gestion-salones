@@ -50,4 +50,10 @@ public class TipoInventarioServiceImpl implements TipoInventarioService
 	public void deleteById (Integer id) {
 		data.deleteById(id);
 	}
+
+	@Override
+	@Transactional
+	public void delete(TipoInventario actual) {
+		data.delete(actual);		
+	}
 }

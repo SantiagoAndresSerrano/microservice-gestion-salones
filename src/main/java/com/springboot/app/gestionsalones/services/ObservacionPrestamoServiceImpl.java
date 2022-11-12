@@ -39,8 +39,8 @@ public class ObservacionPrestamoServiceImpl implements ObservacionPrestamoServic
 	public void update (ObservacionPrestamo nuevo) {
 		ObservacionPrestamo actual = data.findById(nuevo.getId_observacion()).orElse(null);
 		if(actual != null) {
-			actual.setId_detalle(nuevo.getId_detalle());
-			actual.setId_inventario(nuevo.getId_inventario());
+			actual.setPrestamo(nuevo.getPrestamo());
+			actual.setTipoInventario(nuevo.getTipoInventario());
 			actual.setCantidad(nuevo.getCantidad());
 			actual.setObservacion(nuevo.getObservacion());
 			
@@ -52,5 +52,11 @@ public class ObservacionPrestamoServiceImpl implements ObservacionPrestamoServic
 	@Transactional
 	public void deleteById (Integer id) {
 		data.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public void delete(ObservacionPrestamo actual) {
+		data.delete(actual);		
 	}
 }
