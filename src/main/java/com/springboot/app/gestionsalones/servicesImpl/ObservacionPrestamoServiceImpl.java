@@ -41,7 +41,7 @@ public class ObservacionPrestamoServiceImpl implements ObservacionPrestamoServic
 		ObservacionPrestamo actual = data.findById(nuevo.getId_observacion()).orElse(null);
 		if(actual != null) {
 			actual.setPrestamo(nuevo.getPrestamo());
-			actual.setTipoInventario(nuevo.getTipoInventario());
+			actual.setId_inventario(nuevo.getId_inventario());
 			actual.setCantidad(nuevo.getCantidad());
 			actual.setObservacion(nuevo.getObservacion());
 			

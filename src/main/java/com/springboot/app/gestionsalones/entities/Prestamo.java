@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -20,13 +22,18 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "detalle_prestamo")
-public class Prestamo implements Serializable{
+public class Prestamo implements Serializable
+{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_detalle;
-	private Integer id_actividad;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_actividad")
+	private TipoActividad actividad;
+	
 	private Integer id_persona;
-	private Integer id_salon;
+	private String id_salon;
 	private Byte estado;
 	private Date fecha_inicio;
 	private Date fecha_fin;
@@ -38,16 +45,25 @@ public class Prestamo implements Serializable{
 	@PrePersist
     public void prePersist() {
 		this.estado = 0;
+		this.observacion = "";
 		this.observaciones = new ArrayList<>();
     }
 	
 	public Prestamo() {}
 	
-	public Prestamo(Integer id_actividad, Integer id_persona, Integer id_salon, String observacion, Date fecha_inicio, Date fecha_fin) {
-		this.id_actividad = id_actividad;
+	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Date fecha_inicio, Date fecha_fin, String observacion) {
 		this.id_persona = id_persona;
 		this.id_salon = id_salon;
+		this.actividad = actividad;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
 		this.observacion = observacion;
+	}
+	
+	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Date fecha_inicio, Date fecha_fin) {
+		this.id_persona = id_persona;
+		this.id_salon = id_salon;
+		this.actividad = actividad;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 	}

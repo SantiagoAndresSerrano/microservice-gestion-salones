@@ -2,7 +2,6 @@ package com.springboot.app.gestionsalones.controllers;
 
 import java.util.List;
 
-import com.springboot.app.gestionsalones.services.TipoInventarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,62 +14,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.app.gestionsalones.entities.TipoInventario;
-import com.springboot.app.gestionsalones.servicesImpl.TipoInventarioServiceImpl;
+import com.springboot.app.gestionsalones.entities.ObservacionPrestamo;
+import com.springboot.app.gestionsalones.servicesImpl.ObservacionPrestamoServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/inventario")
+@RequestMapping("/observacion")
 @Log4j2
-public class TipoInventarioController 
+public class ObservacionPrestamoController 
 {
 	@Autowired
-	TipoInventarioServiceImpl service;
-
-	@Autowired
-	TipoInventarioService tipoInventarioService;
-
+	ObservacionPrestamoServiceImpl service;
+	
 	@GetMapping
-	public ResponseEntity<List<TipoInventario>> getAll()
+	public ResponseEntity<List<ObservacionPrestamo>> getAll()
 	{
-		List<TipoInventario> tipos = service.findAll();
-		return new ResponseEntity<List<TipoInventario>> (tipos, HttpStatus.OK);
-	}
+		List<ObservacionPrestamo> observaciones = service.findAll();
+		return new ResponseEntity<List<ObservacionPrestamo>> (observaciones, HttpStatus.OK);
+	} 
 	
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<TipoInventario> get(@PathVariable Integer id)
+	public ResponseEntity<ObservacionPrestamo> get(@PathVariable Integer id)
 	{
-		TipoInventario tipo = service.findById(id);
-		if(tipo == null)
+		ObservacionPrestamo observacion = service.findById(id);
+		if(observacion == null)
 			return ResponseEntity.notFound().build();
 		
-		return ResponseEntity.ok(tipo);		
+		return ResponseEntity.ok(observacion);		
 	}
 	
 	@PostMapping
-	public ResponseEntity<TipoInventario> create(@RequestBody TipoInventario tipo)
+	public ResponseEntity<ObservacionPrestamo> create(@RequestBody ObservacionPrestamo nuevo)
 	{
 		try {
-			service.save(tipo);
+			service.save(nuevo);
 		}catch (Exception e) {
 			log.info(e.getMessage());
 			return ResponseEntity.badRequest().build();
 		}
 		
-		return ResponseEntity.ok(tipo);
+		return ResponseEntity.ok(nuevo);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<TipoInventario> delete(@PathVariable("id") Integer id)
+	public ResponseEntity<ObservacionPrestamo> delete(@PathVariable("id") Integer id)
 	{
-		TipoInventario tipo = service.findById(id);
-		if(tipo == null) {
+		ObservacionPrestamo observacion = service.findById(id);
+		if(observacion == null) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		service.delete(tipo);
-		return ResponseEntity.ok(tipo);
+		service.delete(observacion);
+		return ResponseEntity.ok(observacion);
 	}	
 }
