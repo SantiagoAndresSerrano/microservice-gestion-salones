@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -27,23 +28,28 @@ public class Prestamo implements Serializable{
 	private Integer id_persona;
 	private Integer id_salon;
 	private Byte estado;
-	private Date fecha;
+	private Date fecha_inicio;
+	private Date fecha_fin;
 	private String observacion;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "prestamo", cascade = CascadeType.ALL)
 	List<ObservacionPrestamo> observaciones;
 	
+	@PrePersist
+    public void prePersist() {
+		this.estado = 0;
+		this.observaciones = new ArrayList<>();
+    }
+	
 	public Prestamo() {}
 	
-	public Prestamo(Integer id_actividad, Integer id_persona, Integer id_salon, String observacion) {
+	public Prestamo(Integer id_actividad, Integer id_persona, Integer id_salon, String observacion, Date fecha_inicio, Date fecha_fin) {
 		this.id_actividad = id_actividad;
 		this.id_persona = id_persona;
 		this.id_salon = id_salon;
 		this.observacion = observacion;
-		
-		this.estado = 1;
-		this.fecha = new Date();
-		this.observaciones = new ArrayList<>();
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
 	}
 	
 	private static final long serialVersionUID = 1L;

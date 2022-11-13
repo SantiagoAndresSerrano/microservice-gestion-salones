@@ -21,7 +21,7 @@ import com.springboot.app.gestionsalones.servicesImpl.TipoInventarioServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-//@RequestMapping(value= "inventario")
+@RequestMapping("/inventario")
 @Log4j2
 public class TipoInventarioController 
 {
@@ -30,12 +30,6 @@ public class TipoInventarioController
 
 	@Autowired
 	TipoInventarioService tipoInventarioService;
-
-	@RequestMapping(value= "api/inventory")
-	public ResponseEntity<List<TipoInventario>> getInventory(){
-		List<TipoInventario> tipos = service.findAll();
-		return new ResponseEntity<List<TipoInventario>> (tipos, HttpStatus.OK);
-}
 
 	@GetMapping
 	public ResponseEntity<List<TipoInventario>> getAll()
