@@ -2,6 +2,7 @@ package com.springboot.app.gestionsalones.controllers;
 
 import java.util.List;
 
+import com.springboot.app.gestionsalones.services.TipoInventarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +21,28 @@ import com.springboot.app.gestionsalones.servicesImpl.TipoInventarioServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/inventario")
+//@RequestMapping(value= "inventario")
 @Log4j2
 public class TipoInventarioController 
 {
 	@Autowired
 	TipoInventarioServiceImpl service;
-	
+
+	@Autowired
+	TipoInventarioService tipoInventarioService;
+
+	@RequestMapping(value= "api/inventory")
+	public ResponseEntity<List<TipoInventario>> getInventory(){
+		List<TipoInventario> tipos = service.findAll();
+		return new ResponseEntity<List<TipoInventario>> (tipos, HttpStatus.OK);
+}
+
 	@GetMapping
 	public ResponseEntity<List<TipoInventario>> getAll()
 	{
 		List<TipoInventario> tipos = service.findAll();
 		return new ResponseEntity<List<TipoInventario>> (tipos, HttpStatus.OK);
-	} 
+	}
 	
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)

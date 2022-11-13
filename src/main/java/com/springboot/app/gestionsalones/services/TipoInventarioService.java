@@ -6,7 +6,7 @@ import com.springboot.app.gestionsalones.entities.TipoInventario;
 
 public interface TipoInventarioService 
 {	
-	public List<TipoInventario> findAll();	
+	List<TipoInventario> findAll();
 	public TipoInventario findById (Integer id);	
 	public TipoInventario save (TipoInventario nuevo);	
 	public void update (TipoInventario nuevo);	
