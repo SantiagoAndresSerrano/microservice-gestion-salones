@@ -54,18 +54,24 @@
                     <h1 class="mt-4">Prueba inicial DB</h1>
                     <p>Pruebas para el microservicio "Gestion de salones".</p>
                     <button class="btn btn-primary" id="btnPrimero">Algo...</button>
-                    <div class="col-md-6">
-                        <table class="table table-bordered table-hover" id="inventory">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="col-md-8">
+                        <p>Encargado : @Username</p>
+                        <form>
+                        <p>Actividad</p>
+                        <select style="width:100%" name="cmbActividad" id="cmbActividad" class="form-select" aria-label="Default select example">
+                        </select>
+                        <div class="row-md-2">
+                        <p>HoraInicio</p>
+                        <input class="form-control" type="datetime-local" id="horaInicio">
+                        <p>Hora fin</p>
+                        <input class="form-control" type="datetime-local" id="horaFin">
+                        </div>
+                        <button class="btn btn-primary mt-1" href="#" onclick="registrarPrestamo()">
+                            Continuar
+                        </button>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
