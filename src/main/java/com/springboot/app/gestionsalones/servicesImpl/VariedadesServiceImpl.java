@@ -34,5 +34,17 @@ public class VariedadesServiceImpl implements VariedadesService
 		JSONObject obj = new JSONObject(json);
         return Integer.parseInt(obj.get("estado").toString());
 	}
+
+	@Override
+	public List<String> getBloques(String json) {
+		List<String> bloques = new ArrayList<>();
+		JSONArray array = new JSONArray(json);
+		for(int i = 0; i<array.length(); i++) {
+			Gson gson = new Gson();
+			Properties properties = gson.fromJson(String.valueOf(array.get(i)), Properties.class);
+			bloques.add(properties.getProperty("nombre"));
+		}
+		return bloques;
+	}
 	
 }

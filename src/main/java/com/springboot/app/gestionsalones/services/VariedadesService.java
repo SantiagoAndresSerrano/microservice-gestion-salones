@@ -6,4 +6,5 @@ public interface VariedadesService
 {	
 	public List<String> getSalones(String json);
 	public int getEstadoSalon(String json);
+	public List<String> getBloques(String json);
 }

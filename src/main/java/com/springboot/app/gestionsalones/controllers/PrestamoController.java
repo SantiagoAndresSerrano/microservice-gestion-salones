@@ -71,6 +71,22 @@ public class PrestamoController
 		return new ResponseEntity<List<String>> (salones, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/bloques")
+	public ResponseEntity<List<String>> getBloques()
+	{
+		RestTemplate restTemplate = new RestTemplate();
+		List<String> bloques = new ArrayList<>();
+		try {
+        	ResponseEntity<String> response = restTemplate
+                    .getForEntity(URI + "bloque", String.class);
+            if (response.getStatusCode().value() != 200)
+            	return ResponseEntity.notFound().build();
+            bloques = other.getBloques(response.getBody());
+        }catch (Exception e) { log.info(e.getMessage()); }
+		
+		return new ResponseEntity<List<String>> (bloques, HttpStatus.OK);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<Prestamo>> getAll()
 	{
