@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title>Gestion_Salones</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -30,7 +30,6 @@
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -51,12 +50,10 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <h1 class="mt-4">Prueba inicial DB</h1>
-                    <p>Pruebas para el microservicio "Gestion de salones".</p>
-                    <button class="btn btn-primary" id="btnPrimero">Algo...</button>
-                    <div class="col-md-8">
+                    <h1 class="mt-4">Prestamo Salón UFPS</h1>
+
+                    <div class="col-md-2">
                         <p>Encargado : @Username</p>
-                        <form>
                         <p>Actividad</p>
                         <select style="width:100%" name="cmbActividad" id="cmbActividad" class="form-select" aria-label="Default select example">
                         </select>
@@ -66,10 +63,9 @@
                         <p>Hora fin</p>
                         <input class="form-control" type="datetime-local" id="horaFin">
                         </div>
-                        <button class="btn btn-primary mt-1" href="#" onclick="registrarPrestamo()">
+                        <button class="btn btn-primary mt-1" onclick="registrarPrestamo()">
                             Continuar
                         </button>
-                        </form>
                     </div>
 
                 </div>

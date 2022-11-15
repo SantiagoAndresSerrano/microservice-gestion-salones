@@ -1,6 +1,6 @@
-addActivity();
+addBloque();
 
-async function addActivity(){
+async function addBloque(){
     const request = await fetch('actividad', {
         method: 'GET',
         headers: {
@@ -15,6 +15,10 @@ async function addActivity(){
     }
 }
 
+function continuarPrestamo(){
+
+}
+
 function formatDate(timestamp){
     let x=new Date(timestamp);
     let dd = x.getDate();
@@ -23,13 +27,14 @@ function formatDate(timestamp){
     return dd +"/" + mm+"/" + yy;
 }
 
-function registrarPrestamo(){
+async function registrarPrestamo(){
+    let data = {};
 
+    data.id_actividad = document.getElementById('cmbActividad').value;
+    data.fecha_inicio = document.getElementById('horaInicio').value;
+    data.fecha_fin = document.getElementById('horaFin').value;
 
     //Algoritmo validacion i guess
-
-
-
     localStorage.id_actividad = document.getElementById('cmbActividad').value;
     localStorage.fecha_inicio = document.getElementById('horaInicio').value;
     localStorage.fecha_fin = document.getElementById('horaFin').value;
