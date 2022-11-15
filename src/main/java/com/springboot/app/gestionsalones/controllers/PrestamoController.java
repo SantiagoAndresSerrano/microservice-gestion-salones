@@ -51,7 +51,7 @@ public class PrestamoController
             array = other.getSalones(response.getBody());
         }catch (Exception e) { log.info(e.getMessage()); }
 		
-		String inicio = "2022-08-15T10:10:00";
+		/*String inicio = "2022-08-15T10:10:00";
 		String fin = "2022-08-15T12:10:00";
 		List<String> salones = new ArrayList<>();
 		
@@ -67,8 +67,8 @@ public class PrestamoController
 	        }catch (Exception e) {
 	            log.info(e.getMessage());
 	        }
-		}
-		return new ResponseEntity<List<String>> (salones, HttpStatus.OK);
+		}*/
+		return new ResponseEntity<List<String>> (array, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/bloques")
