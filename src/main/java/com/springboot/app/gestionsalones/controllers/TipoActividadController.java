@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,7 +22,7 @@ import com.springboot.app.gestionsalones.servicesImpl.TipoActividadServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4200/actividades"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/actividad")
 @Log4j2
 public class TipoActividadController 
@@ -44,7 +45,7 @@ public class TipoActividadController
 		if(actividad == null)
 			return ResponseEntity.notFound().build();
 		
-		return ResponseEntity.ok(actividad);		
+		return new ResponseEntity<TipoActividad> (actividad, HttpStatus.OK);		
 	}
 	
 	@PostMapping
@@ -57,18 +58,39 @@ public class TipoActividadController
 			return ResponseEntity.badRequest().build();
 		}
 		
-		return ResponseEntity.ok(actividad);
+		return new ResponseEntity<TipoActividad> (actividad, HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<TipoActividad> update(@PathVariable Integer id, @RequestBody TipoActividad nuevo)
+	{
+		TipoActividad actual = new TipoActividad();
+		try {
+			actual = service.findById(id);
+			if(actual == null)
+				return ResponseEntity.notFound().build();
+			actual.setNombre(nuevo.getNombre());
+			actual.setDescripcion(nuevo.getDescripcion());
+			
+			service.save(actual);
+		}catch(Exception e) {
+			log.info(e.getMessage());
+			return ResponseEntity.badRequest().build();
+		}
+		return new ResponseEntity<TipoActividad> (actual, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<TipoActividad> delete(@PathVariable("id") Integer id)
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable("id") Integer id)
 	{
 		TipoActividad actividad = service.findById(id);
-		if(actividad == null) {
+		if(actividad != null)
+			service.delete(actividad);
+		/*if(actividad == null) {
 			return ResponseEntity.notFound().build();
-		}
+		}*/
 		
-		service.delete(actividad);
-		return ResponseEntity.ok(actividad);
+		//return new ResponseEntity<String>("message: Actividad eliminada con éxito", HttpStatus.OK);
 	}	
 }
