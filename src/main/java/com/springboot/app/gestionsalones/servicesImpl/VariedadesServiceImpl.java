@@ -52,6 +52,19 @@ public class VariedadesServiceImpl implements VariedadesService
 		JSONObject obj = new JSONObject(json);
         dates.add(obj.get("nombre").toString());
         dates.add(obj.get("email").toString());
+        
+        JSONArray array = new JSONArray(obj.get("roles").toString());
+        boolean admin = false;
+        for(int i = 0; i<array.length(); i++) {
+			Gson gson = new Gson();
+			Properties properties = gson.fromJson(String.valueOf(array.get(i)), Properties.class);
+			int aux = Integer.parseInt(properties.getProperty("id"));
+			if(aux == 3) dates.add("Estudiante");
+			if(aux == 4) dates.add("Docente");
+			if(aux == 2) admin = true;
+		}
+        if(admin) dates.add("Administrador");
+        else dates.add("Usuario");
 		return dates;
 	}
 	
