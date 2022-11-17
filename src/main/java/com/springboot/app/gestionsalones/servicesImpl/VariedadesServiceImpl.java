@@ -16,7 +16,6 @@ public class VariedadesServiceImpl implements VariedadesService
 {
 
 	@Override
-	//@Transactional(readOnly = true)
 	public List<String> getSalones(String json) 
 	{
 		List<String> salones = new ArrayList<>();
@@ -45,6 +44,15 @@ public class VariedadesServiceImpl implements VariedadesService
 			bloques.add(properties.getProperty("nombre"));
 		}
 		return bloques;
+	}
+
+	@Override
+	public List<String> getUser(String json) {
+		List<String> dates = new ArrayList<>();
+		JSONObject obj = new JSONObject(json);
+        dates.add(obj.get("nombre").toString());
+        dates.add(obj.get("email").toString());
+		return dates;
 	}
 	
 }

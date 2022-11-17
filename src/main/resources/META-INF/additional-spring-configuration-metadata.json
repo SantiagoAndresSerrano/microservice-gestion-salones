@@ -28,5 +28,20 @@
     "name": "URI",
     "type": "java.lang.String",
     "description": "A description for 'URI'"
+  },
+  {
+    "name": "URI_auth",
+    "type": "java.lang.String",
+    "description": "A description for 'URI_auth'"
+  },
+  {
+    "name": "URI_AUTH",
+    "type": "java.lang.String",
+    "description": "A description for 'URI_AUTH'"
+  },
+  {
+    "name": "URI_AUTH",
+    "type": "java.lang.String",
+    "description": "A description for 'URI_AUTH'"
   }
 ]}

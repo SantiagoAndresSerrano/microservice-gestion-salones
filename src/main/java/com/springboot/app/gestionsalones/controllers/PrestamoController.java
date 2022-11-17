@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +27,13 @@ import com.springboot.app.gestionsalones.servicesImpl.VariedadesServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/prestamo")
 @Log4j2
 public class PrestamoController 
 {
 	@Value("${URI}") String URI;
+	@Value("${URI_AUTH}") String URI_AUTH;
 	
 	@Autowired
 	PrestamoServiceImpl service;
@@ -129,7 +132,7 @@ public class PrestamoController
 		return ResponseEntity.ok(prestamo);
 	}
 	
-	@GetMapping(value = "/prueba")
+	@GetMapping(value = "/prestamo")
 	public void prueba() {
 		 String date_time = "2022-08-15T12:10:00";
 	     SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -145,5 +148,19 @@ public class PrestamoController
 	                e.printStackTrace();
 	            }
 	        }
+	}
+	
+	@GetMapping(value="/{id}/user")
+	public ResponseEntity<List<String>> getUserDetails(@PathVariable Integer id){
+		Prestamo prestamo = service.findById(id);
+		RestTemplate restTemplate = new RestTemplate();
+		List<String> dates = new ArrayList<>();
+		try {
+        	ResponseEntity<String> response = restTemplate
+        			.getForEntity(URI_AUTH + "/user/" + prestamo.getId_persona(), String.class);
+        	dates = other.getUser(response.getBody());
+        }catch (Exception e) { log.info(e.getMessage()); }
+		
+		return new ResponseEntity<List<String>> (dates, HttpStatus.OK);		
 	}
 }
