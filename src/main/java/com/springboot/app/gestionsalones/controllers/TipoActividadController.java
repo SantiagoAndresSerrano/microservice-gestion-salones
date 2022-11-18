@@ -87,10 +87,5 @@ public class TipoActividadController
 		TipoActividad actividad = service.findById(id);
 		if(actividad != null)
 			service.delete(actividad);
-		/*if(actividad == null) {
-			return ResponseEntity.notFound().build();
-		}*/
-		
-		//return new ResponseEntity<String>("message: Actividad eliminada con éxito", HttpStatus.OK);
 	}	
 }
