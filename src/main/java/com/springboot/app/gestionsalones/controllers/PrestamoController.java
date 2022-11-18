@@ -1,9 +1,6 @@
 package com.springboot.app.gestionsalones.controllers;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.springboot.app.gestionsalones.entities.NovedadPrestamo;
 import com.springboot.app.gestionsalones.entities.Prestamo;
+import com.springboot.app.gestionsalones.servicesImpl.NovedadPrestamoServiceImpl;
 import com.springboot.app.gestionsalones.servicesImpl.PrestamoServiceImpl;
 import com.springboot.app.gestionsalones.servicesImpl.VariedadesServiceImpl;
 
@@ -37,6 +36,8 @@ public class PrestamoController
 	
 	@Autowired
 	PrestamoServiceImpl service;
+	@Autowired
+	NovedadPrestamoServiceImpl novedad_service;
 	
 	@Autowired
 	VariedadesServiceImpl other;
@@ -132,23 +133,18 @@ public class PrestamoController
 		return ResponseEntity.ok(prestamo);
 	}
 	
-	@GetMapping(value = "/prestamo")
-	public void prueba() {
-		 String date_time = "2022-08-15T12:10:00";
-	     SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	        {
-	            try {
-	                Date date = dateParser.parse(date_time);
-	                System.out.println(date);
-
-	                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	                System.out.println(dateFormatter.format(date));
-
-	            } catch (ParseException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	}
+	/*@GetMapping(value = "/prestamo")
+	public void prueba() 
+	{
+		String date_time = "2022-08-15T12:10:00";
+	    SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	    try {
+	    	Date date = dateParser.parse(date_time);	         
+	    	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	    } catch (ParseException e) {
+	    	e.printStackTrace();
+	    }
+	}*/
 	
 	@GetMapping(value="/{id}/user")
 	public ResponseEntity<List<String>> getUserDetails(@PathVariable Integer id){
@@ -162,5 +158,10 @@ public class PrestamoController
         }catch (Exception e) { log.info(e.getMessage()); }
 		
 		return new ResponseEntity<List<String>> (dates, HttpStatus.OK);		
+	}
+	
+	@GetMapping(value="/{id}/novedad")
+	public ResponseEntity<NovedadPrestamo> getNovedad(@PathVariable Integer id){
+		return new ResponseEntity<NovedadPrestamo> (novedad_service.findById(id), HttpStatus.OK);				
 	}
 }
