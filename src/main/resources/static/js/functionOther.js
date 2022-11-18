@@ -1,4 +1,28 @@
-addBloque();
+entrada();
+
+async function entrada(){
+    const urlParams = new URLSearchParams(window.location.search);
+    var id_actividad = urlParams.get('idActividad');
+    var fecha_inicio = urlParams.get('fechaInicio');
+    var fecha_fin = urlParams.get('fechaFin');
+
+    console.log("Id -> " + id_actividad + " Inicio -> " + fecha_inicio + " Fin -> " + fecha_fin);
+
+    if(id_actividad == null || fecha_inicio == "" || fecha_fin == "" || fecha_inicio == null || fecha_fin == null){
+        alert("No insertó datos >:c");
+        window.location.href="index.html";
+    }
+
+    const request = await fetch('https://api-gateway-ufps.herokuapp.com/roomregister/bloque', {
+        method: 'GET'
+    });
+    const bloques = await request.json();
+    let msg = document.querySelector("#cmbBloque");
+    for (let i=0; i < bloques.length ; ++i){
+        msg.innerHTML += `<option value="${bloques[i].id_edificio}">${bloques[i].nombre}</option>`;
+    }
+}
+
 
 async function addBloque(){
     const request = await fetch('actividad', {
