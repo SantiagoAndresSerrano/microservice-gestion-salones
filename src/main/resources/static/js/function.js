@@ -15,14 +15,6 @@ async function addActivity(){
     }
 }
 
-function formatDate(timestamp){
-    let x=new Date(timestamp);
-    let dd = x.getDate();
-    let mm = x.getMonth()+1;
-    let yy = x.getFullYear();
-    return dd +"/" + mm+"/" + yy;
-}
-
 function registrarPrestamo(){
 
 
