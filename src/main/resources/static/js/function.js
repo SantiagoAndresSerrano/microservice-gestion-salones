@@ -21,8 +21,8 @@ function registrarPrestamo(){
     //Algoritmo validacion i guess
 
     let id_actividad = document.getElementById('cmbActividad').value;
-    let fecha_inicio = document.getElementById('horaInicio').value;
-    let fecha_fin = document.getElementById('horaFin').value;
+    let fecha_inicio = document.getElementById('fechaInicio').value;
+    let fecha_fin = document.getElementById('fechaFin').value;
 
     window.location.href = 'other.html?idActividad=' + id_actividad + '&fechaInicio=' + fecha_inicio + '&fechaFin=' + fecha_fin;
 }

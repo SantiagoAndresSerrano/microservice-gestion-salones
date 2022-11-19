@@ -7,7 +7,7 @@ entrada();
 
 async function entrada(){
     if(actividad == null || fechaInicio == "" || fechaFin == "" || fechaInicio == null || fechaFin == null){
-        alert("No insertó datos >:c");
+        alert("No insertó datos.");
         window.location.href="index.html";
     }
 
@@ -85,9 +85,9 @@ async function continuarPrestamo(){
     data.fecha_fin = fechaFin;
     data.observacion = document.getElementById('txtObservacion').value;
     data.id_persona = 1;
-    data.id_salon = 3;
+    data.id_salon = 1;
 
-    const request2 = await fetch('prestamo', {
+    await fetch('prestamo', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
