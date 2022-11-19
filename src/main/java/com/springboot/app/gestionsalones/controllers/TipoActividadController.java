@@ -22,7 +22,7 @@ import com.springboot.app.gestionsalones.servicesImpl.TipoActividadServiceImpl;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "https://microservices-frontend-ufps.vercel.app", "https://microservices-frontend-ufps.vercel.app/", "https://microservices-frontend-ufps.vercel.app/admin", "https://microservices-frontend-ufps.vercel.app/**"})
+@CrossOrigin(origins = {"http://localhost:4200", "https://microservices-frontend-ufps.vercel.app"})
 @RequestMapping("/actividad")
 @Log4j2
 public class TipoActividadController 
