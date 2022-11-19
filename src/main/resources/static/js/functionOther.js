@@ -13,13 +13,18 @@ async function entrada(){
         window.location.href="index.html";
     }
 
-    const request = await fetch('https://api-gateway-ufps.herokuapp.com/roomregister/bloque', {
-        method: 'GET'
+    const request = await fetch('/prestamo/bloques', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     });
+
     const bloques = await request.json();
     let msg = document.querySelector("#cmbBloque");
     for (let i=0; i < bloques.length ; ++i){
-        msg.innerHTML += `<option value="${bloques[i].id_edificio}">${bloques[i].nombre}</option>`;
+        msg.innerHTML += `<option value="${i}">${bloques[i]}</option>`;
     }
 }
 
