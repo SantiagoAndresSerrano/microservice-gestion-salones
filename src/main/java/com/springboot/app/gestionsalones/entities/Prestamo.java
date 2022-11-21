@@ -45,24 +45,25 @@ public class Prestamo implements Serializable
 	@PrePersist
     public void prePersist() {
 		this.estado = 0;
-		this.observacion = "";
 		this.observaciones = new ArrayList<>();
     }
 	
 	public Prestamo() {}
 	
-	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Date fecha_inicio, Date fecha_fin, String observacion) {
+	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Byte estado, Date fecha_inicio, Date fecha_fin, String observacion) {
 		this.id_persona = id_persona;
 		this.id_salon = id_salon;
+		this.estado = estado;
 		this.actividad = actividad;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		this.observacion = observacion;
 	}
 	
-	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Date fecha_inicio, Date fecha_fin) {
+	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Byte estado, Date fecha_inicio, Date fecha_fin) {
 		this.id_persona = id_persona;
 		this.id_salon = id_salon;
+		this.estado = estado;
 		this.actividad = actividad;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
