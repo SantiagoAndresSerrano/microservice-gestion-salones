@@ -52,16 +52,16 @@
                 <div class="container-fluid">
                     <h1 class="mt-4">Prestamo Salón UFPS</h1>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <p>Encargado : @Username</p>
                         <p>Actividad</p>
                         <select style="width:100%" name="cmbActividad" id="cmbActividad" class="form-select" aria-label="Default select example">
                         </select>
-                        <div class="row-md-4">
-                        <p>HoraInicio</p>
-                        <input class="form-control" type="datetime-local" id="horaInicio">
-                        <p>Hora fin</p>
-                        <input class="form-control" type="datetime-local" id="horaFin">
+                        <div class="row-md-1">
+                            <p>Fecha Inicio</p>
+                                <input class="form-control" type="datetime-local" id="fechaInicio">
+                            <p>Fecha fin</p>
+                                <input class="form-control" type="datetime-local" id="fechaFin">
                         </div>
                         <button class="btn btn-primary mt-1" onclick="registrarPrestamo()">
                             Continuar

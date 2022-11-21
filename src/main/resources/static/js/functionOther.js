@@ -1,15 +1,13 @@
+const urlParams = new URLSearchParams(window.location.search);
+var actividad = urlParams.get('idActividad');
+var fechaInicio = urlParams.get('fechaInicio');
+var fechaFin = urlParams.get('fechaFin');
+
 entrada();
 
 async function entrada(){
-    const urlParams = new URLSearchParams(window.location.search);
-    var id_actividad = urlParams.get('idActividad');
-    var fecha_inicio = urlParams.get('fechaInicio');
-    var fecha_fin = urlParams.get('fechaFin');
-
-    console.log("Id -> " + id_actividad + " Inicio -> " + fecha_inicio + " Fin -> " + fecha_fin);
-
-    if(id_actividad == null || fecha_inicio == "" || fecha_fin == "" || fecha_inicio == null || fecha_fin == null){
-        alert("No insertó datos >:c");
+    if(actividad == null || fechaInicio == "" || fechaFin == "" || fechaInicio == null || fechaFin == null){
+        alert("No insertó datos.");
         window.location.href="index.html";
     }
 
@@ -24,7 +22,30 @@ async function entrada(){
     const bloques = await request.json();
     let msg = document.querySelector("#cmbBloque");
     for (let i=0; i < bloques.length ; ++i){
-        msg.innerHTML += `<option value="${i}">${bloques[i]}</option>`;
+        msg.innerHTML += `<option value="${i+1}" onclick="filtrarSalon(${i+1})">${bloques[i]}</option>`;
+    }
+    filtrarSalon(1);
+}
+
+async function filtrarSalon(id){
+    const request = await fetch(`/prestamo/salones/${id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
+    const salones = await request.json();
+    msg = document.querySelector("#cmbSalon");
+    msg.innerHTML = '';
+
+    for (let i=0; i < salones.length ; ++i){
+        msg.innerHTML += `<option value="${i+1}">${salones[i]}</option>`;
+    }
+    if(salones.length == 0){
+        msg.disabled = true;
+    } else {
+        msg.disabled = false;
     }
 }
 
@@ -44,28 +65,36 @@ async function addBloque(){
     }
 }
 
-function continuarPrestamo(){
+async function continuarPrestamo(){
 
-}
+    //Algoritmo validacion i guess otra vez
 
-function formatDate(timestamp){
-    let x=new Date(timestamp);
-    let dd = x.getDate();
-    let mm = x.getMonth()+1;
-    let yy = x.getFullYear();
-    return dd +"/" + mm+"/" + yy;
-}
+    const request = await fetch(`actividad/${actividad}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
+    const act = await request.json();
 
-async function registrarPrestamo(){
     let data = {};
 
-    data.id_actividad = document.getElementById('cmbActividad').value;
-    data.fecha_inicio = document.getElementById('horaInicio').value;
-    data.fecha_fin = document.getElementById('horaFin').value;
+    data.actividad = act;
+    data.fecha_inicio = fechaInicio;
+    data.fecha_fin = fechaFin;
+    data.observacion = document.getElementById('txtObservacion').value;
+    data.id_persona = 1;
+    data.id_salon = 1;
 
-    //Algoritmo validacion i guess
-    localStorage.id_actividad = document.getElementById('cmbActividad').value;
-    localStorage.fecha_inicio = document.getElementById('horaInicio').value;
-    localStorage.fecha_fin = document.getElementById('horaFin').value;
-    window.location.href = 'other.html';
+    await fetch('prestamo', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    window.location.href = 'vistaPrestamos.html';
 }

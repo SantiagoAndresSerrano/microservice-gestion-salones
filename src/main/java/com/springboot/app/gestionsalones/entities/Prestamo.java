@@ -1,6 +1,10 @@
 package com.springboot.app.gestionsalones.entities;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +39,7 @@ public class Prestamo implements Serializable
 	private Integer id_persona;
 	private String id_salon;
 	private Byte estado;
+
 	private Date fecha_inicio;
 	private Date fecha_fin;
 	private String observacion;
