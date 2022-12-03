@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.springboot.app.gestionsalones.entities.DetallePrestamo;
+import com.springboot.app.gestionsalones.servicesImpl.DetallePrestamoServiceImpl;
 import com.springboot.app.gestionsalones.servicesImpl.VariedadesServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
@@ -29,7 +31,23 @@ public class ApiController
 	@Value("${URI_AUTH}") String URI_AUTH;
 	
 	@Autowired
+	DetallePrestamoServiceImpl service;
+	@Autowired
 	VariedadesServiceImpl other;
+	
+	@GetMapping(value="/{id}/user")
+	public ResponseEntity<List<String>> getUserDetails(@PathVariable Integer id){
+		DetallePrestamo prestamo = service.findById(id);
+		RestTemplate restTemplate = new RestTemplate();
+		List<String> dates = new ArrayList<>();
+		try {
+        	ResponseEntity<String> response = restTemplate
+        			.getForEntity(URI_AUTH + "/user/" + prestamo.getId_persona(), String.class);
+        	dates = other.getUser(response.getBody());
+        }catch (Exception e) { log.info(e.getMessage()); }
+		
+		return new ResponseEntity<List<String>> (dates, HttpStatus.OK);		
+	}
 	
 	@GetMapping(value = "/bloques")
 	public ResponseEntity<List<String>> getBloques()

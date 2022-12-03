@@ -57,7 +57,7 @@ public class NovedadPrestamoController
 	{ 
 		try {
 			service.save(nuevo);
-			nuevo.getPrestamo().setEstado((byte) 2);
+			nuevo.getPrestamo().getDetalle().setEstado((byte) 2);
 			//nuevo.getPrestamo().setNovedad(nuevo);
 			prestamo_service.update(nuevo.getPrestamo());
 		}catch (Exception e) {
