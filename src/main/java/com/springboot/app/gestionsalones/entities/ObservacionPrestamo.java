@@ -23,21 +23,12 @@ public class ObservacionPrestamo implements Serializable
 	private Integer id_observacion;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_detalle")
+	@JoinColumn(name = "id_prestamo")
 	private Prestamo prestamo;
 	
 	private Integer id_inventario;	
 	private Integer cantidad;
 	private String observacion;
-	
-	public ObservacionPrestamo() {}
-	
-	public ObservacionPrestamo(Prestamo prestamo, Integer id_inventario, Integer cantidad, String observacion) {
-		this.prestamo = prestamo;
-		this.id_inventario = id_inventario;
-		this.cantidad = cantidad;
-		this.observacion = observacion;		
-	}
 	
 	public ObservacionPrestamo(Prestamo prestamo, Integer id_inventario, Integer cantidad) {
 		this.prestamo = prestamo;

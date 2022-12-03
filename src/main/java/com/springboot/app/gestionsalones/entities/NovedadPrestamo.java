@@ -20,17 +20,10 @@ public class NovedadPrestamo implements Serializable
 	private Integer id_novedad;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_detalle")
+    @JoinColumn(name = "id_prestamo")
 	private Prestamo prestamo;
 	
 	private String novedad;
-	
-	public NovedadPrestamo() {}
-	
-	public NovedadPrestamo(Prestamo prestamo, String novedad) {
-		this.prestamo = prestamo;
-		this.novedad = novedad;		
-	}
 	
 	private static final long serialVersionUID = 1L;
 }
