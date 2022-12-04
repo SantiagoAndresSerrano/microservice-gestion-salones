@@ -1,19 +1,24 @@
 package com.springboot.app.gestionsalones.servicesImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.springboot.app.gestionsalones.entities.DetallePrestamo;
 import com.springboot.app.gestionsalones.services.VariedadesService;
 
 @Service
 public class VariedadesServiceImpl implements VariedadesService
 {
+	@Autowired
+	DetallePrestamoServiceImpl detalleService;
 
 	@Override
 	public List<String> getSalones(String json) 
@@ -67,5 +72,18 @@ public class VariedadesServiceImpl implements VariedadesService
         else dates.add("Usuario");
 		return dates;
 	}
-	
+
+	@Override
+	public boolean salonIsDipsonible(String salon, Date fecha_inicio, Date fecha_fin) 
+	{
+		List<DetallePrestamo> array = detalleService.getAgendados();
+		for(DetallePrestamo i: array) {
+			if(!i.getId_salon().equals(salon)) continue;
+			if(i.getFecha_inicio().getTime() > fecha_inicio.getTime())
+				return fecha_fin.getTime() <= i.getFecha_inicio().getTime();
+			else 
+				return fecha_inicio.getTime() >= i.getFecha_fin().getTime();			
+		}
+		return true;
+	}	
 }

@@ -1,5 +1,7 @@
 package com.springboot.app.gestionsalones.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,13 +33,13 @@ public class ApiController
 	@Value("${URI_AUTH}") String URI_AUTH;
 	
 	@Autowired
-	DetallePrestamoServiceImpl service;
+	DetallePrestamoServiceImpl detalle_service;
 	@Autowired
 	VariedadesServiceImpl other;
 	
 	@GetMapping(value="/{id}/user")
 	public ResponseEntity<List<String>> getUserDetails(@PathVariable Integer id){
-		DetallePrestamo prestamo = service.findById(id);
+		DetallePrestamo prestamo = detalle_service.findById(id);
 		RestTemplate restTemplate = new RestTemplate();
 		List<String> dates = new ArrayList<>();
 		try {
@@ -82,16 +84,11 @@ public class ApiController
 	}
 	
 	@GetMapping(value = "bloque/{id}/{fecha_inicio}/{fecha_fin}")
-	public ResponseEntity<List<String>> getSalonesDisponibles(@PathVariable Integer id, @PathVariable Date fecha_inicio, @PathVariable Date fecha_fin)
+	public ResponseEntity<List<String>> getSalonesDisponibles(@PathVariable Integer id, @PathVariable String fecha_inicio, @PathVariable String fecha_fin)
 	{
 		//RestTemplate restTemplate = new RestTemplate();
 		List<String> array = this.getSalones(id).getBody();
-		/*SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		
-		String inicio = "2022-08-15T10:10:00";
-		String fin = "2022-08-15T12:10:00";
-		List<String> salones = new ArrayList<>();
-		
+		/*List<String> salones = new ArrayList<>();
 		for(String i : array) {
 			System.out.println(i);
 			try {
@@ -106,5 +103,20 @@ public class ApiController
 	        }
 		}*/
 		return new ResponseEntity<List<String>> (array, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/{id}/{fi}/{ff}")
+	public ResponseEntity<Boolean> isDisponible(@PathVariable String id, @PathVariable String fi, @PathVariable String ff)
+	{
+		SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Date fecha_inicio = new Date(), fecha_fin = new Date();
+		try {
+			fecha_inicio = dateParser.parse(fi);
+			fecha_fin = dateParser.parse(ff);
+		} catch (ParseException e) {
+			log.info(e.getMessage());
+		}
+		
+		return new ResponseEntity<Boolean> (other.salonIsDipsonible(id, fecha_inicio, fecha_fin), HttpStatus.OK);
 	}
 }

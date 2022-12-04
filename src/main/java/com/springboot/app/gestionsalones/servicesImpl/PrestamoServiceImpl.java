@@ -40,7 +40,7 @@ public class PrestamoServiceImpl implements PrestamoService
 	public void update (Prestamo nuevo) {
 		Prestamo actual = data.findById(nuevo.getId_prestamo()).orElse(null);
 		if(actual != null) {
-			actual.setDetalle(nuevo.getDetalle());
+			//actual.setDetalle(nuevo.getDetalle());
 			actual.setNovedad(nuevo.getNovedad());
 			actual.setObservaciones(nuevo.getObservaciones());
 			

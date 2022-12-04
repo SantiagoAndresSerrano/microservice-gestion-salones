@@ -55,4 +55,10 @@ public class DetallePrestamoServiceImpl implements DetallePrestamoService
 	public void delete(DetallePrestamo actual) {
 		data.delete(actual);		
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<DetallePrestamo> getAgendados() {
+		return data.getAgendados();		
+	}
 }

@@ -12,4 +12,5 @@ public interface DetallePrestamoService
 	public void update (DetallePrestamo nuevo);	
 	public void deleteById (Integer id);
 	public void delete (DetallePrestamo actual);
+	public List<DetallePrestamo> getAgendados();
 }

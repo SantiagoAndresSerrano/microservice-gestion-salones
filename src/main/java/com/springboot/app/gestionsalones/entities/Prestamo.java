@@ -2,7 +2,6 @@ package com.springboot.app.gestionsalones.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -29,19 +27,24 @@ public class Prestamo implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_prestamo;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "prestamo", fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_detalle")
     private DetallePrestamo detalle;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "prestamo", fetch = FetchType.LAZY)
-    private NovedadPrestamo novedad;	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "prestamo", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_novedad")
+	private NovedadPrestamo novedad;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "id_observacion")
 	List<ObservacionPrestamo> observaciones;
 	
 	@PrePersist
     public void prePersist() {
 		this.observaciones = new ArrayList<>();
     }
+	
+	public Prestamo () {}
 	
 	public Prestamo (DetallePrestamo detalle) {
 		this.detalle = detalle;
