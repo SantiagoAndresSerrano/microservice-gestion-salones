@@ -18,12 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.app.gestionsalones.entities.ObservacionPrestamo;
 import com.springboot.app.gestionsalones.servicesImpl.ObservacionPrestamoServiceImpl;
 
-import lombok.extern.log4j.Log4j2;
-
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "https://microservices-frontend-ufps.vercel.app/**"})
-@RequestMapping("/observacion")
-@Log4j2
+@RequestMapping("/prestamo/observacion")
+
 public class ObservacionPrestamoController 
 {
 	@Autowired
@@ -53,7 +51,6 @@ public class ObservacionPrestamoController
 		try {
 			service.save(nuevo);
 		}catch (Exception e) {
-			log.info(e.getMessage());
 			return ResponseEntity.badRequest().build();
 		}
 		

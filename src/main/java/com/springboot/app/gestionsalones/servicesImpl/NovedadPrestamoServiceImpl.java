@@ -40,7 +40,7 @@ public class NovedadPrestamoServiceImpl implements NovedadPrestamoService
 	public void update (NovedadPrestamo nuevo) {
 		NovedadPrestamo actual = data.findById(nuevo.getId_novedad()).orElse(null);
 		if(actual != null) {
-			actual.setPrestamo(nuevo.getPrestamo());
+			//actual.setPrestamo(nuevo.getPrestamo());
 			actual.setNovedad(nuevo.getNovedad());
 			
 			data.save(actual);

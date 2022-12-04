@@ -18,15 +18,11 @@ public class TipoActividad implements Serializable
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_actividad;
+	
 	private String nombre;
 	private String descripcion;
 	
 	public TipoActividad() {}
-	
-	public TipoActividad(String nombre, String descripcion) {
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-	}
 	
 	public TipoActividad(String nombre) {
 		this.nombre = nombre;

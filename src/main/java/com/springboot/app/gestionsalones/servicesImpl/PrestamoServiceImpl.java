@@ -38,13 +38,11 @@ public class PrestamoServiceImpl implements PrestamoService
 	@Override
 	@Transactional
 	public void update (Prestamo nuevo) {
-		Prestamo actual = data.findById(nuevo.getId_detalle()).orElse(null);
+		Prestamo actual = data.findById(nuevo.getId_prestamo()).orElse(null);
 		if(actual != null) {
-			actual.setActividad(nuevo.getActividad());
-			actual.setId_persona(nuevo.getId_persona());
-			actual.setId_salon(nuevo.getId_salon());
-			actual.setEstado(nuevo.getEstado());
-			actual.setObservacion(nuevo.getObservacion());
+			//actual.setDetalle(nuevo.getDetalle());
+			actual.setNovedad(nuevo.getNovedad());
+			actual.setObservaciones(nuevo.getObservaciones());
 			
 			data.save(actual);
 		}

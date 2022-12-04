@@ -1,12 +1,7 @@
 package com.springboot.app.gestionsalones.entities;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -25,53 +20,34 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "detalle_prestamo")
+@Table(name = "prestamo")
 public class Prestamo implements Serializable
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_detalle;
+	private Integer id_prestamo;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_actividad")
-	private TipoActividad actividad;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_detalle")
+    private DetallePrestamo detalle;
 	
-	private Integer id_persona;
-	private String id_salon;
-	private Byte estado;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_novedad")
+	private NovedadPrestamo novedad;
 
-	private Date fecha_inicio;
-	private Date fecha_fin;
-	private String observacion;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "prestamo", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "id_observacion")
 	List<ObservacionPrestamo> observaciones;
 	
 	@PrePersist
     public void prePersist() {
-		this.estado = 0;
 		this.observaciones = new ArrayList<>();
     }
 	
-	public Prestamo() {}
+	public Prestamo () {}
 	
-	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Byte estado, Date fecha_inicio, Date fecha_fin, String observacion) {
-		this.id_persona = id_persona;
-		this.id_salon = id_salon;
-		this.estado = estado;
-		this.actividad = actividad;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
-		this.observacion = observacion;
-	}
-	
-	public Prestamo(TipoActividad actividad, Integer id_persona, String id_salon, Byte estado, Date fecha_inicio, Date fecha_fin) {
-		this.id_persona = id_persona;
-		this.id_salon = id_salon;
-		this.estado = estado;
-		this.actividad = actividad;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
+	public Prestamo (DetallePrestamo detalle) {
+		this.detalle = detalle;
 	}
 	
 	private static final long serialVersionUID = 1L;
