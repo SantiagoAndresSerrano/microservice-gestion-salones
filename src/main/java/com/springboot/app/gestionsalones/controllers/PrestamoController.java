@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +50,7 @@ public class PrestamoController
 		return new ResponseEntity<Prestamo>(prestamo, HttpStatus.OK);		
 	}
 		
-	@GetMapping(value = "/{id}/cancelar")
+	@PutMapping(value = "/{id}/cancelar")
 	public ResponseEntity<Prestamo> cancelar(@PathVariable Integer id)
 	{
 		Prestamo prestamo = prestamo_service.findById(id);
@@ -87,7 +88,7 @@ public class PrestamoController
 	}
 	
 	@PostMapping(value = "/{id}/observaciones")
-	public ResponseEntity<Prestamo> createObservaciones(@PathVariable Integer id, List<ObservacionPrestamo> observaciones) 
+	public ResponseEntity<Prestamo> setObservaciones(@PathVariable Integer id, List<ObservacionPrestamo> observaciones) 
 	{
 		Prestamo prestamo = prestamo_service.findById(id);
 		if(prestamo == null)

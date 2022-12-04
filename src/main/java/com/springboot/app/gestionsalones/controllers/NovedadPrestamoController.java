@@ -25,9 +25,6 @@ public class NovedadPrestamoController
 	@Autowired
 	NovedadPrestamoServiceImpl service;
 	
-	@Autowired
-	PrestamoServiceImpl prestamo_service;
-	
 	@GetMapping
 	public ResponseEntity<List<NovedadPrestamo>> getAll()
 	{
@@ -45,16 +42,4 @@ public class NovedadPrestamoController
 		
 		return ResponseEntity.ok(novedad);		
 	}
-	
-	@DeleteMapping(value = "/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<NovedadPrestamo> delete(@PathVariable("id") Integer id)
-	{
-		NovedadPrestamo novedad = service.findById(id);
-		if(novedad == null)
-			return ResponseEntity.notFound().build();
-		
-		service.delete(novedad);
-		return ResponseEntity.ok(novedad);
-	}	
 }

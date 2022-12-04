@@ -56,16 +56,4 @@ public class ObservacionPrestamoController
 		
 		return ResponseEntity.ok(nuevo);
 	}
-	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<ObservacionPrestamo> delete(@PathVariable("id") Integer id)
-	{
-		ObservacionPrestamo observacion = service.findById(id);
-		if(observacion == null) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		service.delete(observacion);
-		return ResponseEntity.ok(observacion);
-	}	
 }
