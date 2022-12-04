@@ -6,7 +6,7 @@ import com.springboot.app.gestionsalones.entities.Prestamo;
 
 public interface PrestamoService 
 {	
-	public List<Prestamo> findAll();	
+	public List<Prestamo> findAll();
 	public Prestamo findById (Integer id);	
 	public Prestamo save (Prestamo nuevo);	
 	public void update (Prestamo nuevo);	
