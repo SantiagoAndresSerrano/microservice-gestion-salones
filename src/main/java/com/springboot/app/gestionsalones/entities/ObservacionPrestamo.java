@@ -20,6 +20,7 @@ public class ObservacionPrestamo implements Serializable
 	private Integer id_observacion;
 	
 	private Integer id_inventario;
+	private String nombre;
 	private Integer cantidad;
 	private String observacion;
 	

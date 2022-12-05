@@ -48,7 +48,7 @@ public class ApiController
         	dates = other.getUser(response.getBody());
         }catch (Exception e) { log.info(e.getMessage()); }
 		
-		return new ResponseEntity<List<String>> (dates, HttpStatus.OK);		
+		return ResponseEntity.ok(dates);		
 	}
 	
 	@GetMapping(value = "/bloques")
@@ -64,7 +64,7 @@ public class ApiController
             bloques = other.getBloques(response.getBody());
         }catch (Exception e) { log.info(e.getMessage()); }
 		
-		return new ResponseEntity<List<String>> (bloques, HttpStatus.OK);
+		return ResponseEntity.ok(bloques);
 	}
 	
 	@GetMapping(value = "bloque/{id}")
@@ -80,7 +80,7 @@ public class ApiController
 	        salones = other.getSalones(response.getBody());
 	    }catch (Exception e) { log.info(e.getMessage()); }
 		
-		return new ResponseEntity<List<String>> (salones, HttpStatus.OK);
+		return ResponseEntity.ok(salones);
 	}
 	
 	@GetMapping(value = "bloque/{id}/{fecha_inicio}/{fecha_fin}")
@@ -117,6 +117,22 @@ public class ApiController
 			log.info(e.getMessage());
 		}
 		
-		return new ResponseEntity<Boolean> (other.salonIsDipsonible(id, fecha_inicio, fecha_fin), HttpStatus.OK);
+		return ResponseEntity.ok(other.salonIsDipsonible(id, fecha_inicio, fecha_fin));
+	}
+	
+	@GetMapping(value = "/inventario/{id}")
+	public ResponseEntity<String[][]> getInventario(@PathVariable String id)
+	{
+		RestTemplate restTemplate = new RestTemplate();
+		String inventario [][] = null;
+		try {
+        	ResponseEntity<String> response = restTemplate
+                    .getForEntity(URI + "inventario/ " + id, String.class);
+            if (response.getStatusCode().value() != 200)
+            	return ResponseEntity.notFound().build();
+            inventario = other.getInventario(response.getBody());
+        }catch (Exception e) { log.info(e.getMessage()); }
+		
+		return ResponseEntity.ok(inventario);
 	}
 }

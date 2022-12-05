@@ -78,7 +78,7 @@ public class PrestamoController
 	}
 	
 	@GetMapping(value = "/{id}/observaciones")
-	public ResponseEntity<List<ObservacionPrestamo>> getObservaciones(@PathVariable Integer id, List<ObservacionPrestamo> observaciones) 
+	public ResponseEntity<List<ObservacionPrestamo>> getObservaciones(@PathVariable Integer id) 
 	{
 		Prestamo prestamo = prestamo_service.findById(id);
 		if(prestamo == null)
@@ -88,7 +88,7 @@ public class PrestamoController
 	}
 	
 	@PostMapping(value = "/{id}/observaciones")
-	public ResponseEntity<Prestamo> setObservaciones(@PathVariable Integer id, List<ObservacionPrestamo> observaciones) 
+	public ResponseEntity<Prestamo> setObservaciones(@PathVariable Integer id, @RequestBody List<ObservacionPrestamo> observaciones) 
 	{
 		Prestamo prestamo = prestamo_service.findById(id);
 		if(prestamo == null)

@@ -2,6 +2,7 @@ package com.springboot.app.gestionsalones.servicesImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -85,5 +86,20 @@ public class VariedadesServiceImpl implements VariedadesService
 				return fecha_inicio.getTime() >= i.getFecha_fin().getTime();			
 		}
 		return true;
-	}	
+	}
+	
+	@Override
+	public String[][] getInventario(String json)
+	{
+		JSONArray array = new JSONArray(json);
+		String inventario [][] = new String[array.length()][2];
+		
+        for(int i = 0; i<array.length(); i++) {
+			Gson gson = new Gson();
+			Properties properties = gson.fromJson(String.valueOf(array.get(i)), Properties.class);
+			inventario[i][0] = properties.getProperty("id_tipo");
+			inventario[0][1] = properties.getProperty("nombre");
+		}
+        return inventario;
+	}
 }
