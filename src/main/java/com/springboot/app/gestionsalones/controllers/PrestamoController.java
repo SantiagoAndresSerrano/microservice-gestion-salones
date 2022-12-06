@@ -95,6 +95,7 @@ public class PrestamoController
 			return ResponseEntity.notFound().build();
 		
 		prestamo.setObservaciones(observaciones);
+		prestamo.getDetalle().setEstado((byte) 1);
 		prestamo_service.save(prestamo);
 		
 		return ResponseEntity.ok(prestamo);

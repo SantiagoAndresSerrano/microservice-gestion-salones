@@ -51,7 +51,7 @@ public class ApiController
 		return ResponseEntity.ok(dates);		
 	}
 	
-	@GetMapping(value = "/bloques")
+	@GetMapping(value = "/bloque")
 	public ResponseEntity<List<String>> getBloques()
 	{
 		RestTemplate restTemplate = new RestTemplate();
@@ -83,7 +83,7 @@ public class ApiController
 		return ResponseEntity.ok(salones);
 	}
 	
-	@GetMapping(value = "bloque/{id}/{fecha_inicio}/{fecha_fin}")
+	@GetMapping(value = "/bloques/{id}/{fecha_inicio}/{fecha_fin}")
 	public ResponseEntity<List<String>> getSalonesDisponibles(@PathVariable Integer id, @PathVariable String fecha_inicio, @PathVariable String fecha_fin)
 	{
 		//RestTemplate restTemplate = new RestTemplate();

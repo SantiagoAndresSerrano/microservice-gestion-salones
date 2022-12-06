@@ -2,7 +2,6 @@ package com.springboot.app.gestionsalones.servicesImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -95,10 +94,9 @@ public class VariedadesServiceImpl implements VariedadesService
 		String inventario [][] = new String[array.length()][2];
 		
         for(int i = 0; i<array.length(); i++) {
-			Gson gson = new Gson();
-			Properties properties = gson.fromJson(String.valueOf(array.get(i)), Properties.class);
-			inventario[i][0] = properties.getProperty("id_tipo");
-			inventario[0][1] = properties.getProperty("nombre");
+        	JSONObject object = array.getJSONObject(i).getJSONObject("tipoRel");
+			inventario[i][0] = object.get("id_tipo").toString();
+			inventario[i][1] = object.get("nombre").toString();
 		}
         return inventario;
 	}
