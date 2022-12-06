@@ -31,12 +31,11 @@ public class Prestamo implements Serializable
     @JoinColumn(name = "id_detalle")
     private DetallePrestamo detalle;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_novedad")
 	private NovedadPrestamo novedad;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	@JoinColumn(name = "id_observacion")
+	@OneToMany(mappedBy = "prestamo", cascade = CascadeType.ALL)
 	List<ObservacionPrestamo> observaciones;
 	
 	@PrePersist

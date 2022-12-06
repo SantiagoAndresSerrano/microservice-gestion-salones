@@ -21,12 +21,10 @@ import com.springboot.app.gestionsalones.entities.DetallePrestamo;
 import com.springboot.app.gestionsalones.servicesImpl.DetallePrestamoServiceImpl;
 import com.springboot.app.gestionsalones.servicesImpl.VariedadesServiceImpl;
 
-import lombok.extern.log4j.Log4j2;
-
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "https://microservices-frontend-ufps.vercel.app/**"})
 @RequestMapping("/api")
-@Log4j2
+
 public class ApiController 
 {
 	@Value("${URI}") String URI;
@@ -46,7 +44,7 @@ public class ApiController
         	ResponseEntity<String> response = restTemplate
         			.getForEntity(URI_AUTH + "/user/" + prestamo.getId_persona(), String.class);
         	dates = other.getUser(response.getBody());
-        }catch (Exception e) { log.info(e.getMessage()); }
+        }catch (Exception e) { }
 		
 		return ResponseEntity.ok(dates);		
 	}
@@ -62,7 +60,7 @@ public class ApiController
             if (response.getStatusCode().value() != 200)
             	return ResponseEntity.notFound().build();
             bloques = other.getBloques(response.getBody());
-        }catch (Exception e) { log.info(e.getMessage()); }
+        }catch (Exception e) { }
 		
 		return ResponseEntity.ok(bloques);
 	}
@@ -78,7 +76,7 @@ public class ApiController
 	        if (response.getStatusCode().value() != 200)
 	        	return ResponseEntity.notFound().build();
 	        salones = other.getSalones(response.getBody());
-	    }catch (Exception e) { log.info(e.getMessage()); }
+	    }catch (Exception e) { }
 		
 		return ResponseEntity.ok(salones);
 	}
@@ -113,9 +111,7 @@ public class ApiController
 		try {
 			fecha_inicio = dateParser.parse(fi);
 			fecha_fin = dateParser.parse(ff);
-		} catch (ParseException e) {
-			log.info(e.getMessage());
-		}
+		} catch (ParseException e) { }
 		
 		return ResponseEntity.ok(other.salonIsDipsonible(id, fecha_inicio, fecha_fin));
 	}
@@ -130,8 +126,8 @@ public class ApiController
                     .getForEntity(URI + "inventario/ " + id, String.class);
             if (response.getStatusCode().value() != 200)
             	return ResponseEntity.notFound().build();
-            inventario = other.getInventario(response.getBody());
-        }catch (Exception e) { log.info(e.getMessage()); }
+            inventario = other.getInventario(response.getBody());            
+        }catch (Exception e) { }
 		
 		return ResponseEntity.ok(inventario);
 	}

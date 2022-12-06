@@ -17,21 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.app.gestionsalones.entities.NovedadPrestamo;
 import com.springboot.app.gestionsalones.entities.ObservacionPrestamo;
 import com.springboot.app.gestionsalones.entities.Prestamo;
-import com.springboot.app.gestionsalones.servicesImpl.DetallePrestamoServiceImpl;
-import com.springboot.app.gestionsalones.servicesImpl.NovedadPrestamoServiceImpl;
 import com.springboot.app.gestionsalones.servicesImpl.PrestamoServiceImpl;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "https://microservices-frontend-ufps.vercel.app/**"})
 @RequestMapping("/prestamo")
+
 public class PrestamoController 
 {
 	@Autowired
 	PrestamoServiceImpl prestamo_service;
-	@Autowired
-	DetallePrestamoServiceImpl detalle_service;
-	@Autowired
-	NovedadPrestamoServiceImpl novedad_service;
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Prestamo>> getAll()
@@ -57,9 +53,7 @@ public class PrestamoController
 		if(prestamo == null)
 			return ResponseEntity.notFound().build();
 		
-		prestamo.getDetalle().setEstado((byte) 2);
-		detalle_service.save(prestamo.getDetalle());
-				
+		prestamo.getDetalle().setEstado((byte) 2);				
 		return ResponseEntity.ok(prestamo);
 	}
 	
@@ -70,8 +64,7 @@ public class PrestamoController
 		if(prestamo == null)
 			return ResponseEntity.notFound().build();
 		
-		novedad_service.save(novedad);
-		prestamo.getDetalle().setEstado((byte) 3); detalle_service.save(prestamo.getDetalle());
+		prestamo.getDetalle().setEstado((byte) 3);
 		prestamo.setNovedad(novedad); prestamo_service.save(prestamo);
 				
 		return ResponseEntity.ok(prestamo);
@@ -93,6 +86,9 @@ public class PrestamoController
 		Prestamo prestamo = prestamo_service.findById(id);
 		if(prestamo == null)
 			return ResponseEntity.notFound().build();
+		
+		for(ObservacionPrestamo i: observaciones)
+			i.setPrestamo(prestamo);
 		
 		prestamo.setObservaciones(observaciones);
 		prestamo.getDetalle().setEstado((byte) 1);

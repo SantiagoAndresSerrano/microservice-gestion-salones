@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.app.gestionsalones.entities.TipoActividad;
@@ -38,7 +37,6 @@ public class TipoActividadController
 	} 
 	
 	@GetMapping(value = "/{id}")
-	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<TipoActividad> get(@PathVariable Integer id)
 	{
 		TipoActividad actividad = service.findById(id);
@@ -81,7 +79,6 @@ public class TipoActividadController
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable("id") Integer id)
 	{
 		TipoActividad actividad = service.findById(id);

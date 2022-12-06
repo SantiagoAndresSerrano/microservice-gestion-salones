@@ -1,7 +1,6 @@
 package com.springboot.app.gestionsalones.services;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public interface VariedadesService 

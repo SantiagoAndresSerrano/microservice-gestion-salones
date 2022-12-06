@@ -32,6 +32,7 @@ public class DetallePrestamoController
 	public ResponseEntity<List<DetallePrestamo>> getAll()
 	{
 		List<DetallePrestamo> detalles = detalle_service.findAll();
+		System.out.println("SI");
 		return new ResponseEntity<List<DetallePrestamo>> (detalles, HttpStatus.OK);
 	}
 	
