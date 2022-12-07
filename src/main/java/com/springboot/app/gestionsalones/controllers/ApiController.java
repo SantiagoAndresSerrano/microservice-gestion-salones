@@ -65,7 +65,7 @@ public class ApiController
 		return ResponseEntity.ok(bloques);
 	}
 	
-	@GetMapping(value = "bloques/{id}")
+	@GetMapping(value = "bloque/{id}")
 	public ResponseEntity<List<String>> getSalones(@PathVariable Integer id)
 	{
 		RestTemplate restTemplate = new RestTemplate();
