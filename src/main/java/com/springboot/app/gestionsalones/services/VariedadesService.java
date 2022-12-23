@@ -11,4 +11,5 @@ public interface VariedadesService
 	public List<String> getUser(String json);
 	public boolean salonIsDipsonible(String salon, Date fecha_inicio, Date fecha_fin);
 	public String[][] getInventario(String json);
+	public String[] getMensaje(String nombre, String salon, Date fecha_inicio, Date fecha_fin, String email);
 }
