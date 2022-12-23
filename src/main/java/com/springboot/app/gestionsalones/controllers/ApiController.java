@@ -86,14 +86,14 @@ public class ApiController
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		List<String> array = this.getSalones(id).getBody();
-		List<String> salones = new ArrayList<>();
-		for(String i : array) {
-			try {
-				ResponseEntity<String> response = restTemplate.getForEntity(URI + "salon/estado/" +i+"/"+fecha_inicio+"/"+fecha_fin, String.class);
-	        	if (response.getStatusCode().value() != 200)  return ResponseEntity.badRequest().build();
-	        	if(other.getEstadoSalon(response.getBody()) == 1 && this.isDisponible(i, fecha_inicio, fecha_fin).getBody()) salones.add(i);
-	        }catch (Exception e) {}
-		}
+		
+		
+			
+				
+	        	
+	        	
+	        
+		
 		return new ResponseEntity<List<String>> (array, HttpStatus.OK);
 	}
 	
