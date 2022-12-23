@@ -84,23 +84,17 @@ public class ApiController
 	@GetMapping(value = "/bloques/{id}/{fecha_inicio}/{fecha_fin}")
 	public ResponseEntity<List<String>> getSalonesDisponibles(@PathVariable Integer id, @PathVariable String fecha_inicio, @PathVariable String fecha_fin)
 	{
-		//RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
 		List<String> array = this.getSalones(id).getBody();
-		/*List<String> salones = new ArrayList<>();
+		List<String> salones = new ArrayList<>();
 		for(String i : array) {
-			System.out.println(i);
 			try {
-				ResponseEntity<String> response = restTemplate
-	                    .getForEntity(URI + "salon/estado/" +i+"/"+inicio+"/"+fin, String.class);
-	        	if (response.getStatusCode().value() != 200)
-	            	return ResponseEntity.badRequest().build();
-	        	if(other.getEstadoSalon(response.getBody()) == 1)
-	            	salones.add(i);
-	        }catch (Exception e) {
-	            log.info(e.getMessage());
-	        }
-		}*/
-		return new ResponseEntity<List<String>> (array, HttpStatus.OK);
+				ResponseEntity<String> response = restTemplate.getForEntity(URI + "salon/estado/" +i+"/"+fecha_inicio+"/"+fecha_fin, String.class);
+	        	if (response.getStatusCode().value() != 200)  return ResponseEntity.badRequest().build();
+	        	if(other.getEstadoSalon(response.getBody()) == 1 && this.isDisponible(i, fecha_inicio, fecha_fin).getBody()) salones.add(i);
+	        }catch (Exception e) {}
+		}
+		return new ResponseEntity<List<String>> (salones, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}/{fi}/{ff}")
