@@ -94,7 +94,7 @@ public class ApiController
 	        	if(other.getEstadoSalon(response.getBody()) == 1 && this.isDisponible(i, fecha_inicio, fecha_fin).getBody()) salones.add(i);
 	        }catch (Exception e) {}
 		}
-		return new ResponseEntity<List<String>> (salones, HttpStatus.OK);
+		return new ResponseEntity<List<String>> (array, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}/{fi}/{ff}")
