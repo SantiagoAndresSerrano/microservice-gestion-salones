@@ -27,8 +27,7 @@ public class PrestamoController
 {
 	@Autowired
 	PrestamoServiceImpl prestamo_service;
-	
-	
+
 	@GetMapping
 	public ResponseEntity<List<Prestamo>> getAll()
 	{

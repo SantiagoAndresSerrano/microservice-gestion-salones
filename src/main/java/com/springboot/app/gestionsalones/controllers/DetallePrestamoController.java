@@ -2,6 +2,7 @@ package com.springboot.app.gestionsalones.controllers;
 
 import java.util.List;
 
+import com.springboot.app.gestionsalones.servicesImpl.EmailSenderServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,9 @@ public class DetallePrestamoController
 	PrestamoServiceImpl prestamo_service;
 	@Autowired
 	DetallePrestamoServiceImpl detalle_service;
+
+	@Autowired
+	EmailSenderServiceImp emailServiceImp;
 	
 	@GetMapping
 	public ResponseEntity<List<DetallePrestamo>> getAll()
@@ -51,7 +55,7 @@ public class DetallePrestamoController
 	{
 		try {
 			detalle_service.save(nuevo);
-			prestamo_service.save(new Prestamo(nuevo));		
+			prestamo_service.save(new Prestamo(nuevo));
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
